@@ -1,7 +1,7 @@
 class PagesController < ApplicationController
 
 	def home
-		@courses = Course.all
+		@courses = Course.where(:featured => true)
 	end
 
 
