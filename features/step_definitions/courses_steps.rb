@@ -17,12 +17,19 @@ Then("a course is saved") do
 end
 
 Then("course is visible") do
-	visit course_path(Course.last.id)
+	# visit course_path(Course.last.id)
 	expect(page).to have_content('French')
 end
 
+Then("they see a flash notice that the course was saved") do
+	expect(page).to have_content('course saved')
+end
+
+Given("that the course already exists") do
+	Course.create!(title: 'German', price: 20, image_url: 'borisbecker.jpg')
+end
+
 Given("that the provider is on the update page") do
-	Course.create(title: 'German', price: 20, image_url: 'borisbecker.jpg')
 	visit edit_course_path(Course.last.id)
 end
 
@@ -39,6 +46,10 @@ Then("the course is updated") do
 end
 
 Then("updated course is visible") do
-	visit course_path(Course.last.id)
+	# visit course_path(Course.last.id)
 	expect(page).to have_content('Chinese')
+end
+
+Then("they see a flash notice that the course was updated") do
+	expect(page).to have_content('course updated')
 end
